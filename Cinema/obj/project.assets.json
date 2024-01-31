@@ -8,24 +8,19 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\calvi\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Gebruiker\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\calvi\\Desktop\\Leerjaar 3\\SOA3\\SOFA3\\Cinema\\Cinema.csproj",
+      "projectUniqueName": "C:\\Users\\Gebruiker\\RiderProjects\\SOFA3\\Cinema\\Cinema.csproj",
       "projectName": "Cinema",
-      "projectPath": "C:\\Users\\calvi\\Desktop\\Leerjaar 3\\SOA3\\SOFA3\\Cinema\\Cinema.csproj",
-      "packagesPath": "C:\\Users\\calvi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\calvi\\Desktop\\Leerjaar 3\\SOA3\\SOFA3\\Cinema\\obj\\",
+      "projectPath": "C:\\Users\\Gebruiker\\RiderProjects\\SOFA3\\Cinema\\Cinema.csproj",
+      "packagesPath": "C:\\Users\\Gebruiker\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Gebruiker\\RiderProjects\\SOFA3\\Cinema\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\calvi\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Gebruiker\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

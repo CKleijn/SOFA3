@@ -26,26 +26,24 @@ namespace Cinema
         public double CalculatePrice()
         {
             double price = 0;
-
-            //loop door tickets
-            foreach(MovieTicket ticket in _ticketList)
+            bool weekendOrder = false;
+            
+            for(var i = 0; i < _ticketList.Count; i++)
             {
+                MovieTicket ticket = _ticketList[i];
+                int dayOfWeek = (int)ticket.GetScreeningTime().DayOfWeek;
+                double baseTicketPrice = ticket.GetPrice();
+                
+                if((i + 1) % 2 == 0 && (_isStudentOrder || dayOfWeek >= 1 && dayOfWeek <= 4))
+                    continue;
+                
+                if(dayOfWeek == 0 || dayOfWeek >= 5)
+                    weekendOrder = true;
 
+                price += ticket.IsPremiumTicket() ? ( _isStudentOrder ? (baseTicketPrice += 2) : (baseTicketPrice += 3) ) : baseTicketPrice;
             }
-
-            // 2de ticket gratis voor studenten (24/7)
-            // 2de ticket is gratis voor iedereen (ma t/m do)
-
-            // In weekend groepen NIET-studenten boven 6 personen krijgen 10% korting
-
-            // Premium ticket studenten (2 eu + standaardprijs stoel)
-            // Premium ticket niet-studenten (3eu + standaardprijs stoel)
-            // ^^ worden in de kortingen verrekend (gratis ticket = ook geen extra kosten; bij 10% korting ook 10% van de extra kosten).
-
-            // Studenten-order is volledig voor studenten (geen mix)
-
-
-            return 0;
+            
+            return _ticketList.Count >= 6 && weekendOrder && !_isStudentOrder ? price *= 0.9 : price;
         }
 
         public void Export(TicketExportFormat exportFormat)
@@ -53,11 +51,11 @@ namespace Cinema
             switch (exportFormat)
             {
                 case TicketExportFormat.JSON:
-                    string jsonString = JsonSerializer.Serialize(this.ToString());
-                    File.WriteAllText($"./exports/order_{this._orderNr}_{DateTime.Now}.json", jsonString);
+                    string jsonString = JsonSerializer.Serialize(ToString());
+                    File.WriteAllText($"./exports/order_{_orderNr}_{DateTime.Now:dd/MM/yyyy}.json", jsonString);
                     break;
                 case TicketExportFormat.PLAINTEXT:
-                    File.WriteAllText($"./exports/order_{this._orderNr}_{DateTime.Now}.txt", this.ToString());
+                    File.WriteAllText($"./exports/order-{_orderNr}-{DateTime.Now:dd/MM/yyyy}.txt", ToString());
                     break;
                 default:
                     throw new ArgumentException("Unsupported serialization format");
@@ -68,17 +66,16 @@ namespace Cinema
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendLine($"Order: {this._orderNr}");
-            sb.AppendLine($"Price: {this.CalculatePrice}");
+            sb.AppendLine($"Order: {_orderNr}");
+            sb.AppendLine($"Price: {this.CalculatePrice().ToString("C2")}\n");
 
-            sb.AppendLine("Tickets:");
+            sb.AppendLine("Tickets:\n");
 
-            foreach (var ticket in this._ticketList)
+            for (var i = 0; i < _ticketList.Count; i++)
             {
-                sb.AppendLine(ticket.ToString());
+                sb.AppendLine($"Ticket {i + 1}:");
+                sb.AppendLine(_ticketList[i].ToString());
             }
-
-            // Voeg overige functies toe
 
             return sb.ToString();
         }

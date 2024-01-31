@@ -15,8 +15,12 @@
             _tickets = new List<MovieTicket>();
         }
 
-        public double GetPricePerSeat() => this._pricePerSeat;
-
-        public override string ToString() => $"{this._dateAndTime} - a seat costs {this._pricePerSeat}";
+        public double GetPricePerSeat() => _pricePerSeat;
+        
+        public Movie GetMovie() => _movie;
+        
+        public DateTime GetScreeningTime() => _dateAndTime;
+        
+        public override string ToString() => $"{_dateAndTime} - a seat costs {_pricePerSeat}";
     }
 }

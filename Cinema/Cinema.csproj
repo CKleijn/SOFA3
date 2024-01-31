@@ -6,4 +6,18 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="exports\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="exports\order_2.json" />
+    <Content Remove="exports\order.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="exports\order_2.txt" />
+    <None Remove="exports\order_txt_2_31-01-2024.txt" />
+  </ItemGroup>
+
 </Project>

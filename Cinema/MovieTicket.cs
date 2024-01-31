@@ -17,19 +17,20 @@ namespace Cinema
             _seatNr = seatNr;
         }
 
-        public bool IsPremiumTicket() => this._isPremium;
+        public bool IsPremiumTicket() => _isPremium;
 
-        public double GetPrice() => this._movieScreening.GetPricePerSeat();
+        public double GetPrice() => _movieScreening.GetPricePerSeat();
+        public DateTime GetScreeningTime() => _movieScreening.GetScreeningTime();
 
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendLine("Ticket info\n");
-            sb.AppendLine($"Row number: {this._rowNr}");
-            sb.AppendLine($"Seat number: {this._seatNr}");
-            sb.AppendLine($"Seat type: {(this._isPremium ? "Premium" : "Basic")}");
-            sb.AppendLine($"Price: {this.GetPrice()}");
+            sb.AppendLine($"Movie title: {_movieScreening.GetMovie().GetTitle()}");
+            sb.AppendLine($"Screening time: {_movieScreening.GetScreeningTime().ToString("dd/MM/yyyy HH:mm")}");
+            sb.AppendLine($"Row number: {_rowNr}");
+            sb.AppendLine($"Seat number: {_seatNr}");
+            sb.AppendLine($"Seat type: {(_isPremium ? "Premium" : "Basic")}");
 
             return sb.ToString();
         } 
