@@ -4,19 +4,25 @@ namespace Cinema
 {
     public class MovieTicket(MovieScreening movieScreening, bool isPremiumReservation, int seatRow, int seatNr)
     {
+        private MovieScreening _movieScreening = movieScreening;
+        private bool _isPremiumReservation = isPremiumReservation;
+        private int _seatRow = seatRow;
+        private int _seatNr = seatNr;
+        
         public bool IsPremiumTicket() => isPremiumReservation;
-
-        public double GetPrice() => movieScreening.GetPricePerSeat();
-        public DateTime GetScreeningTime() => movieScreening.GetScreeningTime();
+        
+        public double GetPrice() => _movieScreening.GetPricePerSeat();
+        
+        public DateTime GetScreeningTime() => _movieScreening.GetScreeningTime();
         
         public object ToJson()
         {
             return new
             {
-                screening = movieScreening.ToJson(),
-                isPremium = isPremiumReservation,
-                rowNr = seatRow,
-                seatNr
+                screening = _movieScreening.ToJson(),
+                isPremium = _isPremiumReservation,
+                rowNr = _seatRow,
+                seatNr = _seatNr
             };
         }
 

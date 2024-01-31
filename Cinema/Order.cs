@@ -64,7 +64,7 @@ namespace Cinema
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             sb.AppendLine($"Order: {_orderNr}");
             sb.AppendLine($"Student order: {_isStudentOrder}");
