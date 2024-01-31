@@ -2,35 +2,33 @@
 
 namespace Cinema
 {
-    public class MovieTicket
+    public class MovieTicket(MovieScreening movieScreening, bool isPremiumReservation, int seatRow, int seatNr)
     {
-        private MovieScreening _movieScreening;
-        private bool _isPremium;
-        private int _rowNr;
-        private int _seatNr;
+        public bool IsPremiumTicket() => isPremiumReservation;
 
-        public MovieTicket(MovieScreening movieScreening, bool isPremiumReservation, int seatRow, int seatNr)
+        public double GetPrice() => movieScreening.GetPricePerSeat();
+        public DateTime GetScreeningTime() => movieScreening.GetScreeningTime();
+        
+        public object ToJson()
         {
-            _movieScreening = movieScreening;
-            _isPremium = isPremiumReservation;
-            _rowNr = seatRow;
-            _seatNr = seatNr;
+            return new
+            {
+                screening = movieScreening.ToJson(),
+                isPremium = isPremiumReservation,
+                rowNr = seatRow,
+                seatNr
+            };
         }
-
-        public bool IsPremiumTicket() => _isPremium;
-
-        public double GetPrice() => _movieScreening.GetPricePerSeat();
-        public DateTime GetScreeningTime() => _movieScreening.GetScreeningTime();
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
-            sb.AppendLine($"Movie title: {_movieScreening.GetMovie().GetTitle()}");
-            sb.AppendLine($"Screening time: {_movieScreening.GetScreeningTime().ToString("dd/MM/yyyy HH:mm")}");
-            sb.AppendLine($"Row number: {_rowNr}");
-            sb.AppendLine($"Seat number: {_seatNr}");
-            sb.AppendLine($"Seat type: {(_isPremium ? "Premium" : "Basic")}");
+            sb.AppendLine($"Movie title: {movieScreening.GetMovie().GetTitle()}");
+            sb.AppendLine($"Screening time: {movieScreening.GetScreeningTime().ToString("dd/MM/yyyy HH:mm")}");
+            sb.AppendLine($"Row number: {seatRow}");
+            sb.AppendLine($"Seat number: {seatNr}");
+            sb.AppendLine($"Seat type: {(isPremiumReservation ? "Premium" : "Basic")}");
 
             return sb.ToString();
         } 

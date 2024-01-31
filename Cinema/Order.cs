@@ -1,27 +1,17 @@
-﻿using System;
-using System.IO;
-using System.Xml.Serialization;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text;
 
 namespace Cinema
 {
-    public class Order
+    public class Order(int orderNr, bool isStudentOrder)
     {
-        private int _orderNr;
-        private bool _isStudentOrder;
-        private IList<MovieTicket> _ticketList;
+        private int _orderNr = orderNr;
+        private bool _isStudentOrder = isStudentOrder;
+        private IList<MovieTicket> _ticketList = new List<MovieTicket>();
 
-        public Order(int orderNr, bool isStudentOrder)
-        {
-            _orderNr = orderNr;
-            _isStudentOrder = isStudentOrder;
-            _ticketList = new List<MovieTicket>();
-        }
+        public int GetOrder() => _orderNr;
 
-        public int GetOrder() => this._orderNr;
-
-        public void AddSeatReservation(MovieTicket ticket) => this._ticketList.Add(ticket);
+        public void AddSeatReservation(MovieTicket ticket) => _ticketList.Add(ticket);
 
         public double CalculatePrice()
         {
@@ -51,7 +41,7 @@ namespace Cinema
             switch (exportFormat)
             {
                 case TicketExportFormat.JSON:
-                    string jsonString = JsonSerializer.Serialize(ToString());
+                    string jsonString = JsonSerializer.Serialize(ToJson());
                     File.WriteAllText($"./exports/order_{_orderNr}_{DateTime.Now:dd/MM/yyyy}.json", jsonString);
                     break;
                 case TicketExportFormat.PLAINTEXT:
@@ -61,13 +51,23 @@ namespace Cinema
                     throw new ArgumentException("Unsupported serialization format");
             }
         }
+        
+        private object ToJson()
+        {
+            return new
+            {
+                orderNr = _orderNr,
+                isStudentOrder = _isStudentOrder,
+                ticketList = _ticketList.Select(ticket => ticket.ToJson()).ToList()
+            };
+        }
 
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine($"Order: {_orderNr}");
-            sb.AppendLine($"Price: {this.CalculatePrice().ToString("C2")}\n");
+            sb.AppendLine($"Price: {CalculatePrice().ToString("C2")}\n");
 
             sb.AppendLine("Tickets:\n");
 
