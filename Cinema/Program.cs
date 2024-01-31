@@ -34,7 +34,7 @@ app.MapGet("/", () =>
     order.AddSeatReservation(ticket6);
     
     //exports
-    //order.Export(TicketExportFormat.PLAINTEXT);
+    order.Export(TicketExportFormat.PLAINTEXT);
     order.Export(TicketExportFormat.JSON);
 
     return order.ToString();

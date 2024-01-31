@@ -10,21 +10,4 @@
     <Folder Include="exports\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Remove="exports\order_2.json" />
-    <Content Remove="exports\order.json" />
-    <Content Remove="exports\order_2_01-31-2024.json" />
-    <Content Remove="exports\order_2_31-01-2024.json" />
-    <Content Remove="exports\order_2_json.json" />
-    <Content Remove="exports\order_json_2_31-01-2024.json" />
-    <Content Remove="exports\order_1_31-01-2024.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="exports\order_2.txt" />
-    <None Remove="exports\order_txt_2_31-01-2024.txt" />
-    <None Remove="exports\order-2-31-01-2024.txt" />
-    <None Remove="exports\order_2_text.txt" />
-  </ItemGroup>
-
 </Project>

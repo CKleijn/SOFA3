@@ -42,10 +42,10 @@ namespace Cinema
             {
                 case TicketExportFormat.JSON:
                     string jsonString = JsonSerializer.Serialize(ToJson());
-                    File.WriteAllText($"./exports/order_{_orderNr}_{DateTime.Now:dd/MM/yyyy}.json", jsonString);
+                    File.WriteAllText($"./exports/order_{_orderNr}_{DateTime.Now:dd_MM_yyyy}.json", jsonString);
                     break;
                 case TicketExportFormat.PLAINTEXT:
-                    File.WriteAllText($"./exports/order-{_orderNr}-{DateTime.Now:dd/MM/yyyy}.txt", ToString());
+                    File.WriteAllText($"./exports/order-{_orderNr}-{DateTime.Now:dd-MM-yyyy}.txt", ToString());
                     break;
                 default:
                     throw new ArgumentException("Unsupported serialization format");
@@ -67,6 +67,7 @@ namespace Cinema
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine($"Order: {_orderNr}");
+            sb.AppendLine($"Student order: {_isStudentOrder}");
             sb.AppendLine($"Price: {CalculatePrice().ToString("C2")}\n");
 
             sb.AppendLine("Tickets:\n");
