@@ -7,10 +7,10 @@ app.MapGet("/", () =>
 {
     //movie
     Movie movie = new("The Godfather");
-    
+
     //screenings
-    MovieScreening screening = new(movie, DateTime.Now.AddDays(+10), 10);
-    
+    MovieScreening screening = new(movie, new DateTime(2024, 2, 3, 9, 0, 0), 10);
+
     //add screening to movie
     movie.AddScreening(screening);
     
