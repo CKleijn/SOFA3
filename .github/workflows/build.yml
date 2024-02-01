@@ -22,10 +22,10 @@ jobs:
       run: dotnet restore
 
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build
 
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test
 
   sonarcube:
     name: Build and analyze
@@ -49,5 +49,6 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"CKleijn_SOFA3" /o:"ckleijn" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-          dotnet build --no-restore 
+          dotnet build
+          dotnet test
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
