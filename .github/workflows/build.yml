@@ -11,10 +11,10 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@latest-version
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v5
+      uses: actions/setup-dotnet@latest-version
       with:
         dotnet-version: '8.0.x'
 
@@ -28,7 +28,7 @@ jobs:
       run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
     - name: Publish coverage results
-      uses: coverlet-coverage/coverlet-action@v2
+      uses: coverlet-coverage/coverlet-action@latest-version
       with:
         opencoverFile: ./coverage.opencover.xml
         githubToken: ${{ secrets.GITHUB_TOKEN }}
@@ -40,10 +40,10 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@latest-version
 
     - name: Setup SonarCloud
-      uses: sonarsource/setup-sonarcloud@v1
+      uses: sonarsource/setup-sonarcloud@latest-version
       with:
         sonar-token: ${{ secrets.SONAR_TOKEN }}
 
