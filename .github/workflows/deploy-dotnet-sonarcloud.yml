@@ -1,4 +1,4 @@
-name: .NET
+name: CI
 
 on:
   push:
@@ -27,3 +27,6 @@ jobs:
       
     - name: Test
       run: dotnet test --no-build --verbosity normal
+
+    - name: SonarCloud Scan
+      run: dotnet sonarscanner begin /k:"CKleijn_SOFA3" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" && dotnet build && dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
