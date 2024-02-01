@@ -15,25 +15,27 @@ namespace Cinema
 
         public double CalculatePrice()
         {
-            double price = 0;
-            bool weekendOrder = false;
-            
-            for(var i = 0; i < _ticketList.Count; i++)
+            double totalPrice = 0;
+            bool isWeekend = false;
+
+            for (var i = 0; i < _ticketList.Count; i++)
             {
                 MovieTicket ticket = _ticketList[i];
-                int dayOfWeek = (int)ticket.GetScreeningTime().DayOfWeek;
-                double baseTicketPrice = ticket.GetPrice();
-                
-                if((i + 1) % 2 == 0 && (_isStudentOrder || dayOfWeek >= 1 && dayOfWeek <= 4))
-                    continue;
-                
-                if(dayOfWeek == 0 || dayOfWeek >= 5)
-                    weekendOrder = true;
+                int ticketNumber = i + 1;
+                var dayOfWeek = ticket.GetScreeningTime().DayOfWeek;
+                isWeekend = (dayOfWeek == DayOfWeek.Friday || dayOfWeek == DayOfWeek.Saturday || dayOfWeek == DayOfWeek.Sunday);
+                double ticketPrice = ticket.GetPrice();
 
-                price += ticket.IsPremiumTicket() ? ( _isStudentOrder ? (baseTicketPrice += 2) : (baseTicketPrice += 3) ) : baseTicketPrice;
+                if (ticketNumber % 2 == 0 && (_isStudentOrder || !isWeekend))
+                    continue;
+
+                if (ticket.IsPremiumTicket())
+                    ticketPrice += _isStudentOrder ? 2 : 3;
+
+                totalPrice += ticketPrice;
             }
-            
-            return _ticketList.Count >= 6 && weekendOrder && !_isStudentOrder ? price *= 0.9 : price;
+
+            return _ticketList.Count >= 6 && isWeekend && !_isStudentOrder ? totalPrice *= 0.9 : totalPrice;
         }
 
         public void Export(TicketExportFormat exportFormat)
@@ -41,25 +43,31 @@ namespace Cinema
             switch (exportFormat)
             {
                 case TicketExportFormat.JSON:
-                    string jsonString = JsonSerializer.Serialize(ToJson());
-                    File.WriteAllText($"./exports/order_{_orderNr}_{DateTime.Now:dd_MM_yyyy}.json", jsonString);
+                    ExportJson();
                     break;
                 case TicketExportFormat.PLAINTEXT:
-                    File.WriteAllText($"./exports/order-{_orderNr}-{DateTime.Now:dd-MM-yyyy}.txt", ToString());
+                    ExportPlainText();
                     break;
                 default:
                     throw new ArgumentException("Unsupported serialization format");
             }
         }
-        
-        private object ToJson()
+
+        private void ExportPlainText() => File.WriteAllText($"./exports/order-{_orderNr}-{DateTime.Now:dd-MM-yyyy}.txt", ToString());
+
+        private void ExportJson()
         {
-            return new
+            var JsonObject = new
             {
                 orderNr = _orderNr,
                 isStudentOrder = _isStudentOrder,
-                ticketList = _ticketList.Select(ticket => ticket.ToJson()).ToList()
+                price = CalculatePrice().ToString("C2"),
+                ticketAmount = _ticketList.Count
             };
+
+            string jsonString = JsonSerializer.Serialize(JsonObject);
+
+            File.WriteAllText($"./exports/order_{_orderNr}_{DateTime.Now:dd_MM_yyyy}.json", jsonString);
         }
 
         public override string ToString()
@@ -68,15 +76,8 @@ namespace Cinema
 
             sb.AppendLine($"Order: {_orderNr}");
             sb.AppendLine($"Student order: {_isStudentOrder}");
-            sb.AppendLine($"Price: {CalculatePrice().ToString("C2")}\n");
-
-            sb.AppendLine("Tickets:\n");
-
-            for (var i = 0; i < _ticketList.Count; i++)
-            {
-                sb.AppendLine($"Ticket {i + 1}:");
-                sb.AppendLine(_ticketList[i].ToString());
-            }
+            sb.AppendLine($"Price: {CalculatePrice().ToString("C2")}");
+            sb.AppendLine($"Ticket amount: {_ticketList.Count}");
 
             return sb.ToString();
         }

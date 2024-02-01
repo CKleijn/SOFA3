@@ -13,16 +13,6 @@
         
         public DateTime GetScreeningTime() => _dateAndTime;
         
-        public object ToJson()
-        {
-            return new
-            {
-                movie = _movie.ToString(),
-                dateAndTime = _dateAndTime.ToString("dd/MM/yyyy HH:mm"),
-                pricePerSeat = _pricePerSeat
-            };
-        }
-        
         public override string ToString() => $"{_dateAndTime} - a seat costs {_pricePerSeat}";
     }
 }
