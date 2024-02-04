@@ -2,8 +2,8 @@
 {
     public class Movie(string title)
     {
-        private string _title = title;
-        private IList<MovieScreening> _screenings = new List<MovieScreening>();
+        private readonly string _title = title;
+        private readonly List<MovieScreening> _screenings = [];
 
         public void AddScreening(MovieScreening movieScreening) => _screenings.Add(movieScreening);
         

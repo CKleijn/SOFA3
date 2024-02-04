@@ -5,9 +5,9 @@ namespace Cinema
 {
     public class Order(int orderNr, bool isStudentOrder)
     {
-        private int _orderNr = orderNr;
-        private bool _isStudentOrder = isStudentOrder;
-        private IList<MovieTicket> _ticketList = new List<MovieTicket>();
+        private readonly int _orderNr = orderNr;
+        private readonly bool _isStudentOrder = isStudentOrder;
+        private readonly List<MovieTicket> _ticketList = [];
 
         public int GetOrder() => _orderNr;
 
@@ -35,7 +35,7 @@ namespace Cinema
                 totalPrice += ticketPrice;
             }
 
-            return _ticketList.Count >= 6 && isWeekend && !_isStudentOrder ? totalPrice *= 0.9 : totalPrice;
+            return (_ticketList.Count >= 6 && isWeekend && !_isStudentOrder) ? totalPrice * 0.9 : totalPrice;
         }
 
         public void Export(TicketExportFormat exportFormat)
