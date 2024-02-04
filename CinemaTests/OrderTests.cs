@@ -23,7 +23,7 @@ namespace CinemaTests
             // Arrange
             Movie movie = new("The Godfather");
 
-            MovieScreening screening = new(movie, new DateTime(2024, 2, 3, 9, 0, 0), 10);
+            MovieScreening screening = new(movie, new DateTime(2024, 2, 3, 9, 0, 0, DateTimeKind.Local), 10);
 
             movie.AddScreening(screening);
 
@@ -56,7 +56,7 @@ namespace CinemaTests
             // Arrange
             Movie movie = new("The Godfather");
 
-            MovieScreening screening = new(movie, new DateTime(2024, 2, 3, 9, 0, 0), 10);
+            MovieScreening screening = new(movie, new DateTime(2024, 2, 3, 9, 0, 0, DateTimeKind.Local), 10);
 
             movie.AddScreening(screening);
 
@@ -87,7 +87,7 @@ namespace CinemaTests
             // Arrange
             Movie movie = new("The Godfather");
 
-            MovieScreening screening = new(movie, new DateTime(2024, 2, 3, 9, 0, 0), 10);
+            MovieScreening screening = new(movie, new DateTime(2024, 2, 3, 9, 0, 0, DateTimeKind.Local), 10);
 
             movie.AddScreening(screening);
 
@@ -120,7 +120,7 @@ namespace CinemaTests
             // Arrange
             Movie movie = new("The Godfather");
 
-            MovieScreening screening = new(movie, new DateTime(2024, 2, 3, 9, 0, 0), 10);
+            MovieScreening screening = new(movie, new DateTime(2024, 2, 3, 9, 0, 0, DateTimeKind.Local), 10);
 
             movie.AddScreening(screening);
 
@@ -145,7 +145,7 @@ namespace CinemaTests
             // Arrange
             Movie movie = new("The Godfather");
 
-            MovieScreening screening = new(movie, new DateTime(2024, 2, 3, 9, 0, 0), 10);
+            MovieScreening screening = new(movie, new DateTime(2024, 2, 3, 9, 0, 0, DateTimeKind.Local), 10);
 
             movie.AddScreening(screening);
 

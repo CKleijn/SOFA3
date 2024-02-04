@@ -4,10 +4,10 @@ namespace Cinema
 {
     public class MovieTicket(MovieScreening movieScreening, bool isPremiumReservation, int seatRow, int seatNr)
     {
-        private MovieScreening _movieScreening = movieScreening;
-        private bool _isPremiumReservation = isPremiumReservation;
-        private int _seatRow = seatRow;
-        private int _seatNr = seatNr;
+        private readonly MovieScreening _movieScreening = movieScreening;
+        private readonly bool _isPremiumReservation = isPremiumReservation;
+        private readonly int _seatRow = seatRow;
+        private readonly int _seatNr = seatNr;
         
         public bool IsPremiumTicket() => _isPremiumReservation;
         
