@@ -16,9 +16,9 @@ namespace Cinema
         private ITicketPriceRuleBehaviour _discountRuleBehaviour = discountRuleBehaviour;
 
         public void SetExportBehaviour(IExportBehaviour behaviour) => _exportBehaviour = behaviour;
-        public void SetFreeTicketRule(ITicketPriceRuleBehaviour behaviour) => _freeTicketRuleBehaviour = behaviour;
-        public void SetPremiumTicketFeeRule(ITicketPriceRuleBehaviour behaviour) => _premiumTicketFeeRuleBehaviour = behaviour;
-        public void SetDiscountRule(ITicketPriceRuleBehaviour behaviour) => _discountRuleBehaviour = behaviour;
+        public void SetFreeTicketRuleBehaviour(ITicketPriceRuleBehaviour behaviour) => _freeTicketRuleBehaviour = behaviour;
+        public void SetPremiumTicketFeeRuleBehaviour(ITicketPriceRuleBehaviour behaviour) => _premiumTicketFeeRuleBehaviour = behaviour;
+        public void SetDiscountRuleBehaviour(ITicketPriceRuleBehaviour behaviour) => _discountRuleBehaviour = behaviour;
 
         public int GetOrder() => _orderNr;
 
