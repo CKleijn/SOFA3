@@ -7,7 +7,7 @@ namespace Cinema.Implementations.PriceRules
     {
         public double Calculate(Order order, MovieTicket movieTicket)
         {
-            bool isWeekend = Helpers.IsWeekend(movieTicket);
+            bool isWeekend = Helpers.IsWeekend(movieTicket.GetScreeningTime().DayOfWeek);
 
             int ticketIndex = order.GetTicketList().IndexOf(movieTicket) + 1;
 

@@ -2,10 +2,9 @@
 {
     public static class Helpers
     {
-        public static bool IsWeekend(MovieTicket movieTicket)
+        public static bool IsWeekend(DayOfWeek dayOfWeek)
         {
-            DayOfWeek dayOfWeek = movieTicket.GetScreeningTime().DayOfWeek;
             return dayOfWeek == DayOfWeek.Friday || dayOfWeek == DayOfWeek.Saturday || dayOfWeek == DayOfWeek.Sunday;
         }
-    }
+    } 
 }
