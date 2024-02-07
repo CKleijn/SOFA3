@@ -3,7 +3,7 @@ using Cinema.Utils;
 
 namespace Cinema.Implementations.PriceRules
 {
-    public class FreeTicketPriceRuleBehaviour : ITicketPriceRuleBehaviour
+    public class RegularFreeTicketPriceRuleBehaviour : ITicketPriceRuleBehaviour
     {
         public double Calculate(Order order, MovieTicket movieTicket)
         {

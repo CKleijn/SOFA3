@@ -10,7 +10,7 @@ namespace CinemaTests
         public void TotalPrice_NoTickets_ReturnsTotalPriceOf0()
         {
             // Arrange
-            Order order = new(1, false, new PlainTextExportBehaviour(), new FreeTicketPriceRuleBehaviour(), new PremiumFeePriceRuleBehaviour(), new DiscountPriceRuleBehaviour());
+            Order order = new(1, false, new PlainTextExportBehaviour(), new RegularFreeTicketPriceRuleBehaviour(), new RegularPremiumFeePriceRuleBehaviour(), new RegularDiscountPriceRuleBehaviour());
 
             // Act
             var result = order.CalculatePrice();
@@ -36,7 +36,7 @@ namespace CinemaTests
             MovieTicket ticket5 = new(screening, false, 3, 2);
             MovieTicket ticket6 = new(screening, false, 4, 2);
 
-            Order order = new(1, false, new PlainTextExportBehaviour(), new FreeTicketPriceRuleBehaviour(), new PremiumFeePriceRuleBehaviour(), new DiscountPriceRuleBehaviour());
+            Order order = new(1, false, new PlainTextExportBehaviour(), new RegularFreeTicketPriceRuleBehaviour(), new RegularPremiumFeePriceRuleBehaviour(), new RegularDiscountPriceRuleBehaviour());
 
             order.AddSeatReservation(ticket1);
             order.AddSeatReservation(ticket2);
@@ -68,7 +68,7 @@ namespace CinemaTests
             MovieTicket ticket4 = new(screening, false, 2, 2);
             MovieTicket ticket5 = new(screening, false, 3, 2);
 
-            Order order = new(1, false, new PlainTextExportBehaviour(), new FreeTicketPriceRuleBehaviour(), new PremiumFeePriceRuleBehaviour(), new DiscountPriceRuleBehaviour());
+            Order order = new(1, false, new PlainTextExportBehaviour(), new RegularFreeTicketPriceRuleBehaviour(), new RegularPremiumFeePriceRuleBehaviour(), new RegularDiscountPriceRuleBehaviour());
 
             order.AddSeatReservation(ticket1);
             order.AddSeatReservation(ticket2);
@@ -100,7 +100,7 @@ namespace CinemaTests
             MovieTicket ticket5 = new(screening, true, 3, 2);
             MovieTicket ticket6 = new(screening, true, 4, 2);
 
-            Order order = new(1, false, new PlainTextExportBehaviour(), new FreeTicketPriceRuleBehaviour(), new PremiumFeePriceRuleBehaviour(), new DiscountPriceRuleBehaviour());
+            Order order = new(1, false, new PlainTextExportBehaviour(), new RegularFreeTicketPriceRuleBehaviour(), new RegularPremiumFeePriceRuleBehaviour(), new RegularDiscountPriceRuleBehaviour());
 
             order.AddSeatReservation(ticket1);
             order.AddSeatReservation(ticket2);
@@ -129,7 +129,7 @@ namespace CinemaTests
             MovieTicket ticket1 = new(screening, true, 1, 1);
             MovieTicket ticket2 = new(screening, true, 1, 2);
 
-            Order order = new(1, true, new PlainTextExportBehaviour(), new FreeTicketPriceRuleBehaviour(), new PremiumFeePriceRuleBehaviour(), new DiscountPriceRuleBehaviour());
+            Order order = new(1, true, new PlainTextExportBehaviour(), new RegularFreeTicketPriceRuleBehaviour(), new RegularPremiumFeePriceRuleBehaviour(), new RegularDiscountPriceRuleBehaviour());
 
             order.AddSeatReservation(ticket1);
             order.AddSeatReservation(ticket2);
@@ -154,7 +154,7 @@ namespace CinemaTests
             MovieTicket ticket1 = new(screening, true, 1, 1);
             MovieTicket ticket2 = new(screening, true, 1, 2);
 
-            Order order = new(1, false, new PlainTextExportBehaviour(), new FreeTicketPriceRuleBehaviour(), new PremiumFeePriceRuleBehaviour(), new DiscountPriceRuleBehaviour());
+            Order order = new(1, false, new PlainTextExportBehaviour(), new RegularFreeTicketPriceRuleBehaviour(), new RegularPremiumFeePriceRuleBehaviour(), new RegularDiscountPriceRuleBehaviour());
 
             order.AddSeatReservation(ticket1);
             order.AddSeatReservation(ticket2);

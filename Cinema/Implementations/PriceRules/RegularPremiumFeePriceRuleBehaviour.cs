@@ -2,7 +2,7 @@
 
 namespace Cinema.Implementations.PriceRules
 {
-    public class PremiumFeePriceRuleBehaviour : ITicketPriceRuleBehaviour
+    public class RegularPremiumFeePriceRuleBehaviour : ITicketPriceRuleBehaviour
     {
         public double Calculate(Order order, MovieTicket movieTicket)
         {

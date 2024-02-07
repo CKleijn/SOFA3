@@ -25,7 +25,7 @@ app.MapGet("/", () =>
     MovieTicket ticket6 = new(screening, true, 4, 2);
     
     //orders
-    Order order = new(1, false, new PlainTextExportBehaviour(), new FreeTicketPriceRuleBehaviour(), new PremiumFeePriceRuleBehaviour(), new DiscountPriceRuleBehaviour());
+    Order order = new(1, false, new PlainTextExportBehaviour(), new RegularFreeTicketPriceRuleBehaviour(), new RegularPremiumFeePriceRuleBehaviour(), new RegularDiscountPriceRuleBehaviour());
     
     //add tickets to orders
     order.AddSeatReservation(ticket1);
