@@ -1,74 +1,59 @@
-﻿using System.Text.Json;
-using System.Text;
+﻿using System.Text;
+using Cinema.Interfaces.Export;
+using Cinema.Interfaces.PriceRules;
 
 namespace Cinema
 {
-    public class Order(int orderNr, bool isStudentOrder)
+    public class Order(int orderNr, bool isStudentOrder, IExportBehaviour exportBehaviour, ITicketPriceRuleBehaviour freeTicketRuleBehaviour, ITicketPriceRuleBehaviour premiumTicketFeeRuleBehaviour, ITicketPriceRuleBehaviour discountRuleBehaviour)
     {
         private readonly int _orderNr = orderNr;
         private readonly bool _isStudentOrder = isStudentOrder;
-        private readonly List<MovieTicket> _ticketList = [];
+        private readonly List<MovieTicket> _ticketList = new();
+
+        private IExportBehaviour _exportBehaviour = exportBehaviour;
+        private ITicketPriceRuleBehaviour _freeTicketRuleBehaviour = freeTicketRuleBehaviour;
+        private ITicketPriceRuleBehaviour _premiumTicketFeeRuleBehaviour = premiumTicketFeeRuleBehaviour;
+        private ITicketPriceRuleBehaviour _discountRuleBehaviour = discountRuleBehaviour;
+
+        public void SetExportBehaviour(IExportBehaviour behaviour) => _exportBehaviour = behaviour;
+        public void SetFreeTicketRule(ITicketPriceRuleBehaviour behaviour) => _freeTicketRuleBehaviour = behaviour;
+        public void SetPremiumTicketFeeRule(ITicketPriceRuleBehaviour behaviour) => _premiumTicketFeeRuleBehaviour = behaviour;
+        public void SetDiscountRule(ITicketPriceRuleBehaviour behaviour) => _discountRuleBehaviour = behaviour;
 
         public int GetOrder() => _orderNr;
+
+        public bool GetIsStudentOrder() => _isStudentOrder;
+
+        public List<MovieTicket> GetTicketList() => _ticketList;
 
         public void AddSeatReservation(MovieTicket ticket) => _ticketList.Add(ticket);
 
         public double CalculatePrice()
         {
             double totalPrice = 0;
-            bool isWeekend = false;
 
             for (var i = 0; i < _ticketList.Count; i++)
             {
                 MovieTicket ticket = _ticketList[i];
-                int ticketNumber = i + 1;
-                var dayOfWeek = ticket.GetScreeningTime().DayOfWeek;
-                isWeekend = (dayOfWeek == DayOfWeek.Friday || dayOfWeek == DayOfWeek.Saturday || dayOfWeek == DayOfWeek.Sunday);
+
                 double ticketPrice = ticket.GetPrice();
 
-                if (ticketNumber % 2 == 0 && (_isStudentOrder || !isWeekend))
-                    continue;
+                // Check free ticket
+                if (_freeTicketRuleBehaviour.Calculate(this, ticket) == 0) continue;
 
-                if (ticket.IsPremiumTicket())
-                    ticketPrice += _isStudentOrder ? 2 : 3;
+                // Check premium ticket
+                ticketPrice += _premiumTicketFeeRuleBehaviour.Calculate(this, ticket);
+
+                // Check discount
+                ticketPrice *= _discountRuleBehaviour.Calculate(this, ticket);
 
                 totalPrice += ticketPrice;
             }
 
-            return (_ticketList.Count >= 6 && isWeekend && !_isStudentOrder) ? totalPrice * 0.9 : totalPrice;
+            return totalPrice;
         }
 
-        public void Export(TicketExportFormat exportFormat)
-        {
-            switch (exportFormat)
-            {
-                case TicketExportFormat.JSON:
-                    ExportJson();
-                    break;
-                case TicketExportFormat.PLAINTEXT:
-                    ExportPlainText();
-                    break;
-                default:
-                    throw new ArgumentException("Unsupported serialization format");
-            }
-        }
-
-        private void ExportPlainText() => File.WriteAllText($"./exports/order-{_orderNr}-{DateTime.Now:dd-MM-yyyy}.txt", ToString());
-
-        private void ExportJson()
-        {
-            var JsonObject = new
-            {
-                orderNr = _orderNr,
-                isStudentOrder = _isStudentOrder,
-                price = CalculatePrice().ToString("C2"),
-                ticketAmount = _ticketList.Count
-            };
-
-            string jsonString = JsonSerializer.Serialize(JsonObject);
-
-            File.WriteAllText($"./exports/order_{_orderNr}_{DateTime.Now:dd_MM_yyyy}.json", jsonString);
-        }
+        public void Export() => _exportBehaviour.Export(this);
 
         public override string ToString()
         {
