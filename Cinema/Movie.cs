@@ -3,7 +3,7 @@
     public class Movie(string title)
     {
         private readonly string _title = title;
-        private readonly List<MovieScreening> _screenings = [];
+        private readonly List<MovieScreening> _screenings = new();
 
         public void AddScreening(MovieScreening movieScreening) => _screenings.Add(movieScreening);
         
