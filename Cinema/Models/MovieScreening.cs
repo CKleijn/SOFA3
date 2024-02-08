@@ -1,4 +1,4 @@
-﻿namespace Cinema
+﻿namespace Cinema.Models
 {
     public class MovieScreening(Movie movie, DateTime dateAndTime, double pricePerSeat)
     {
@@ -7,11 +7,11 @@
         private readonly double _pricePerSeat = pricePerSeat;
 
         public double GetPricePerSeat() => _pricePerSeat;
-        
+
         public Movie GetMovie() => _movie;
-        
+
         public DateTime GetScreeningTime() => _dateAndTime;
-        
+
         public override string ToString() => $"{_dateAndTime} - a seat costs {_pricePerSeat}";
     }
 }

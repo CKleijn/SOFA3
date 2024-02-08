@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using Cinema.Interfaces.Export;
+using Cinema.Models;
 
 namespace Cinema.Implementations.Export
 {

@@ -1,4 +1,6 @@
-﻿namespace Cinema.Interfaces.Export
+﻿using Cinema.Models;
+
+namespace Cinema.Interfaces.Export
 {
     public interface IExportBehaviour
     {
