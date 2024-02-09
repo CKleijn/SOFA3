@@ -17,7 +17,7 @@ namespace Cinema.Models
         {
             _orderNr = orderNr;
             _isStudentOrder = isStudentOrder;
-            _ticketList = [];
+            _ticketList = new();
             _state = new InitialState(this);
         }
 
@@ -87,7 +87,7 @@ namespace Cinema.Models
 
         private void ExportJson()
         {
-            var JsonObject = new
+            var jsonObject = new
             {
                 orderNr = _orderNr,
                 isStudentOrder = _isStudentOrder,
@@ -95,7 +95,7 @@ namespace Cinema.Models
                 ticketAmount = _ticketList.Count
             };
 
-            string jsonString = JsonSerializer.Serialize(JsonObject);
+            string jsonString = JsonSerializer.Serialize(jsonObject);
 
             File.WriteAllText($"./exports/order_{_orderNr}_{DateTime.Now:dd_MM_yyyy}.json", jsonString);
         }

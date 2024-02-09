@@ -257,59 +257,59 @@ namespace CinemaTests
             Assert.IsType<CancelledState>(order.GetState());
         }
 
-        //[Fact]
-        //public void ProvisionOrder_GivenTwoTicketsAndScreeningTimeIsInsideTwentyFourHoursOfTheScreeningTime_WhenCurrentStateIsSubmittedState_ThenNewStateIsProvisionalState()
-        //{
-        //    // Arrange
-        //    Movie movie = new("The Godfather");
+        [Fact]
+        public void ProvisionOrder_GivenTwoTicketsAndScreeningTimeIsInsideTwentyFourHoursOfTheScreeningTime_WhenCurrentStateIsSubmittedState_ThenNewStateIsProvisionalState()
+        {
+            // Arrange
+            Movie movie = new("The Godfather");
 
-        //    MovieScreening screening = new(movie, new DateTime(2024, 2, 9, 0, 0, 0, DateTimeKind.Local), 10);
+            MovieScreening screening = new(movie, DateTime.Now.AddHours(23), 10);
 
-        //    movie.AddScreening(screening);
+            movie.AddScreening(screening);
+            
+            MovieTicket ticket1 = new(screening, true, 1, 1);
+            MovieTicket ticket2 = new(screening, true, 1, 2);
 
-        //    MovieTicket ticket1 = new(screening, true, 1, 1);
-        //    MovieTicket ticket2 = new(screening, true, 1, 2);
+            Order order = new(1, false);
 
-        //    Order order = new(1, false);
+            order.AddSeatReservation(ticket1);
+            order.AddSeatReservation(ticket2);
 
-        //    order.AddSeatReservation(ticket1);
-        //    order.AddSeatReservation(ticket2);
+            order.SetState(new SubmittedState(order));
 
-        //    order.SetState(new SubmittedState(order));
+            // Act
+            order.ProvisionOrder();
 
-        //    // Act
-        //    order.ProvisionOrder();
+            // Assert
+            Assert.IsType<ProvisionalState>(order.GetState());
+        }
 
-        //    // Assert
-        //    Assert.IsType<ProvisionalState>(order.GetState());
-        //}
+        [Fact]
+        public void ProvisionOrder_GivenTwoTicketsAndScreeningTimeIsOutsideTwentyFourHoursOfTheScreeningTime_WhenCurrentStateIsSubmittedState_ThenStateStaysSubmittedState()
+        {
+            // Arrange
+            Movie movie = new("The Godfather");
 
-        //[Fact]
-        //public void ProvisionOrder_GivenTwoTickets_WhenCurrentStateIsSubmittedState_ThenStateStaysSubmittedState()
-        //{
-        //    // Arrange
-        //    Movie movie = new("The Godfather");
+            MovieScreening screening = new(movie, DateTime.Now.AddHours(48), 10);
 
-        //    MovieScreening screening = new(movie, new DateTime(2024, 4, 20, 9, 0, 0, DateTimeKind.Local), 10);
+            movie.AddScreening(screening);
 
-        //    movie.AddScreening(screening);
+            MovieTicket ticket1 = new(screening, true, 1, 1);
+            MovieTicket ticket2 = new(screening, true, 1, 2);
 
-        //    MovieTicket ticket1 = new(screening, true, 1, 1);
-        //    MovieTicket ticket2 = new(screening, true, 1, 2);
+            Order order = new(1, false);
 
-        //    Order order = new(1, false);
+            order.AddSeatReservation(ticket1);
+            order.AddSeatReservation(ticket2);
 
-        //    order.AddSeatReservation(ticket1);
-        //    order.AddSeatReservation(ticket2);
+            order.SetState(new SubmittedState(order));
 
-        //    order.SetState(new SubmittedState(order));
+            // Act
+            order.ProvisionOrder();
 
-        //    // Act
-        //    order.ProvisionOrder();
-
-        //    // Assert
-        //    Assert.IsType<SubmittedState>(order.GetState());
-        //}
+            // Assert
+            Assert.IsType<SubmittedState>(order.GetState());
+        }
 
         [Fact]
         public void PayOrder_GivenTwoTickets_WhenCurrentStateIsSubmittedState_ThenNewStateIsPaidState()
@@ -407,59 +407,59 @@ namespace CinemaTests
             Assert.IsType<CancelledState>(order.GetState());
         }
 
-        //[Fact]
-        //public void CancelOrder_GivenTwoTicketsAndScreeningTimeIsInsideTwelveHoursOfTheScreeningTime_WhenCurrentStateIsProvisionalState_ThenNewStateIsCancelledState()
-        //{
-        //    // Arrange
-        //    Movie movie = new("The Godfather");
+        [Fact]
+        public void ProvisionOrder_GivenTwoTicketsAndScreeningTimeIsInsideTwelveHoursOfTheScreeningTime_WhenCurrentStateIsProvisionalState_ThenNewStateIsCancelledState()
+        {
+            // Arrange
+            Movie movie = new("The Godfather");
 
-        //    MovieScreening screening = new(movie, new DateTime(2024, 2, 9, 8, 0, 0, DateTimeKind.Local), 10);
+            MovieScreening screening = new(movie, DateTime.Now.AddHours(5), 10);
 
-        //    movie.AddScreening(screening);
+            movie.AddScreening(screening);
 
-        //    MovieTicket ticket1 = new(screening, true, 1, 1);
-        //    MovieTicket ticket2 = new(screening, true, 1, 2);
+            MovieTicket ticket1 = new(screening, true, 1, 1);
+            MovieTicket ticket2 = new(screening, true, 1, 2);
 
-        //    Order order = new(1, false);
+            Order order = new(1, false);
 
-        //    order.AddSeatReservation(ticket1);
-        //    order.AddSeatReservation(ticket2);
+            order.AddSeatReservation(ticket1);
+            order.AddSeatReservation(ticket2);
 
-        //    order.SetState(new ProvisionalState(order));
+            order.SetState(new ProvisionalState(order));
 
-        //    // Act
-        //    order.CancelOrder();
+            // Act
+            order.ProvisionOrder();
 
-        //    // Assert
-        //    Assert.IsType<CancelledState>(order.GetState());
-        //}
+            // Assert
+            Assert.IsType<CancelledState>(order.GetState());
+        }
 
-        //[Fact]
-        //public void CancelOrder_GivenTwoTickets_WhenCurrentStateIsSubmittedState_ThenStateStaysProvisionalState()
-        //{
-        //    // Arrange
-        //    Movie movie = new("The Godfather");
+        [Fact]
+        public void ProvisionOrder_GivenTwoTicketsAndScreeningTimeIsOutsideTwelveHoursOfTheScreeningTime_WhenCurrentStateIsProvisionalState__ThenStateStaysProvisionalState()
+        {
+            // Arrange
+            Movie movie = new("The Godfather");
 
-        //    MovieScreening screening = new(movie, new DateTime(2024, 4, 20, 9, 0, 0, DateTimeKind.Local), 10);
+            MovieScreening screening = new(movie, DateTime.Now.AddHours(14), 10);
 
-        //    movie.AddScreening(screening);
+            movie.AddScreening(screening);
 
-        //    MovieTicket ticket1 = new(screening, true, 1, 1);
-        //    MovieTicket ticket2 = new(screening, true, 1, 2);
+            MovieTicket ticket1 = new(screening, true, 1, 1);
+            MovieTicket ticket2 = new(screening, true, 1, 2);
 
-        //    Order order = new(1, false);
+            Order order = new(1, false);
 
-        //    order.AddSeatReservation(ticket1);
-        //    order.AddSeatReservation(ticket2);
+            order.AddSeatReservation(ticket1);
+            order.AddSeatReservation(ticket2);
 
-        //    order.SetState(new ProvisionalState(order));
+            order.SetState(new ProvisionalState(order));
 
-        //    // Act
-        //    order.CancelOrder();
+            // Act
+            order.ProvisionOrder();
 
-        //    // Assert
-        //    Assert.IsType<ProvisionalState>(order.GetState());
-        //}
+            // Assert
+            Assert.IsType<ProvisionalState>(order.GetState());
+        }
 
         [Fact]
         public void PayOrder_GivenTwoTickets_WhenCurrentStateIsProvisionalState_ThenNewStateIsPaidState()

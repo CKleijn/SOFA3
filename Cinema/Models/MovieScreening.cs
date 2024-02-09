@@ -5,7 +5,7 @@
         private readonly Movie _movie = movie;
         private readonly DateTime _dateAndTime = dateAndTime;
         private readonly double _pricePerSeat = pricePerSeat;
-        //private readonly List<MovieTicket> _tickets = [];
+        //private readonly List<MovieTicket> _tickets = new();
 
         public double GetPricePerSeat() => _pricePerSeat;
 

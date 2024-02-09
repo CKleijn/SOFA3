@@ -28,7 +28,7 @@ namespace Cinema.States.Implementations
         {
             DateTime screeningTime = _context.GetTicketList().First().GetScreeningTime();
 
-            if (DateTime.Now.AddHours(-12) >= screeningTime)
+            if (DateTime.Now >= screeningTime.AddHours(-12))
                 CancelOrder();
         }
 
