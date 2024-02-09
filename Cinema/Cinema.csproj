@@ -7,7 +7,31 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="exports\" />
+    <Compile Remove="Implementations\**" />
+    <Compile Remove="Interfaces\**" />
+    <Compile Remove="exports\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Implementations\**" />
+    <EmbeddedResource Remove="Interfaces\**" />
+    <EmbeddedResource Remove="exports\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Implementations\**" />
+    <Content Remove="Interfaces\**" />
+    <Content Remove="exports\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Implementations\**" />
+    <None Remove="Interfaces\**" />
+    <None Remove="exports\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Exports\" />
   </ItemGroup>
 
 </Project>

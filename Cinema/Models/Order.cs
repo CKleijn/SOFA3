@@ -95,9 +95,7 @@ namespace Cinema.Models
                 ticketAmount = _ticketList.Count
             };
 
-            string jsonString = JsonSerializer.Serialize(jsonObject);
-
-            File.WriteAllText($"./exports/order_{_orderNr}_{DateTime.Now:dd_MM_yyyy}.json", jsonString);
+            File.WriteAllText($"./Exports/order_{_orderNr}_{DateTime.Now:dd_MM_yyyy}.json", JsonSerializer.Serialize(jsonObject));
         }
 
         public override string ToString()
