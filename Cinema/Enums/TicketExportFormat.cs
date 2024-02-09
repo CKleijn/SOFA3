@@ -1,4 +1,4 @@
-﻿namespace Cinema
+﻿namespace Cinema.Enums
 {
     public enum TicketExportFormat
     {

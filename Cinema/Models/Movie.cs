@@ -1,4 +1,4 @@
-﻿namespace Cinema
+﻿namespace Cinema.Models
 {
     public class Movie(string title)
     {
@@ -6,9 +6,9 @@
         private readonly List<MovieScreening> _screenings = [];
 
         public void AddScreening(MovieScreening movieScreening) => _screenings.Add(movieScreening);
-        
+
         public string GetTitle() => _title;
-        
+
         public override string ToString() => $"{_title}";
     }
 }

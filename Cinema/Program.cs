@@ -1,4 +1,5 @@
-using Cinema;
+using Cinema.Enums;
+using Cinema.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
