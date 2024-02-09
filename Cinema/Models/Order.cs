@@ -23,7 +23,7 @@ namespace Cinema.Models
 
         public IOrderState GetState() => _state;
 
-        public IOrderState SetState(IOrderState state) => _state = state;
+        public void SetState(IOrderState state) => _state = state;
 
         public int GetOrder() => _orderNr;
 

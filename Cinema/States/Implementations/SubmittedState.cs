@@ -26,7 +26,7 @@ namespace Cinema.States.Implementations
 
         public void ProvisionOrder()
         {
-            DateTime screeningTime = _context.GetTicketList().First().GetScreeningTime();
+            DateTime screeningTime = _context.GetTicketList().ElementAt(0).GetScreeningTime();
 
             if (DateTime.Now >= screeningTime.AddHours(-24))
             {
