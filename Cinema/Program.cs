@@ -1,6 +1,5 @@
-using Cinema;
-using Cinema.Implementations.Export;
-using Cinema.Implementations.PriceRules;
+using Cinema.Enums;
+using Cinema.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
@@ -25,7 +24,7 @@ app.MapGet("/", () =>
     MovieTicket ticket6 = new(screening, true, 4, 2);
     
     //orders
-    Order order = new(1, false, new PlainTextExportBehaviour(), new RegularFreeTicketPriceRuleBehaviour(), new RegularPremiumFeePriceRuleBehaviour(), new RegularDiscountPriceRuleBehaviour());
+    Order order = new(1, false);
     
     //add tickets to orders
     order.AddSeatReservation(ticket1);
@@ -36,9 +35,8 @@ app.MapGet("/", () =>
     order.AddSeatReservation(ticket6);
     
     //exports
-    order.Export();
-    order.SetExportBehaviour(new JsonExportBehaviour());
-    order.Export();
+    order.Export(TicketExportFormat.PLAINTEXT);
+    order.Export(TicketExportFormat.JSON);
 
     return order.ToString();
 });
