@@ -10,7 +10,9 @@ namespace Cinema.States.Implementations
         public void SubmitOrder()
         {
             if(_context.GetTicketList().Count > 0)
+            {
                 _context.SetState(new SubmittedState(_context));
+            }
 
             // throw error
         }

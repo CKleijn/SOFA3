@@ -1,5 +1,7 @@
 using Cinema.Enums;
+using Cinema.Libraries;
 using Cinema.Models;
+using Cinema.States.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
@@ -25,7 +27,13 @@ app.MapGet("/", () =>
     
     //orders
     Order order = new(1, false);
-    
+
+    order.SetNotificationLibrary(new WhatsApp());
+
+    order.RegisterObserver(new InitialState(order));
+    order.RegisterObserver(new ProvisionalState(order));
+    order.RegisterObserver(new SubmittedState(order));
+
     //add tickets to orders
     order.AddSeatReservation(ticket1);
     order.AddSeatReservation(ticket2);
@@ -33,7 +41,11 @@ app.MapGet("/", () =>
     order.AddSeatReservation(ticket4);
     order.AddSeatReservation(ticket5);
     order.AddSeatReservation(ticket6);
-    
+
+    order.SubmitOrder();
+    order.ProvisionOrder();
+    order.CancelOrder();
+
     //exports
     order.Export(TicketExportFormat.PLAINTEXT);
     order.Export(TicketExportFormat.JSON);

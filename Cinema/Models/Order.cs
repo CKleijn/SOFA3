@@ -3,29 +3,47 @@ using System.Text;
 using Cinema.Enums;
 using Cinema.States.Interfaces;
 using Cinema.States.Implementations;
+using Cinema.Interfaces;
+using Cinema.Adapters;
+using Cinema.Libraries;
 
 namespace Cinema.Models
 {
-    public class Order
+    public class Order : ISubject
     {
         private readonly int _orderNr;
         private readonly bool _isStudentOrder;
         private readonly List<MovieTicket> _ticketList;
+        private readonly List<IObserver> _observers;
         private IOrderState _state;
+        private INotificationLibrary _notificationLibrary;
+        private NotificationLibraryAdapter _libraryAdapter;
+
 
         public Order(int orderNr, bool isStudentOrder)
         {
             _orderNr = orderNr;
             _isStudentOrder = isStudentOrder;
             _ticketList = new();
+            _observers = new();
             _state = new InitialState(this);
+            _notificationLibrary = new Mail();
+            _libraryAdapter = new(_notificationLibrary);
         }
 
         public IOrderState GetState() => _state;
 
         public void SetState(IOrderState state) => _state = state;
 
+        public void SetNotificationLibrary(INotificationLibrary notificationLibrary)
+        {
+            _notificationLibrary = notificationLibrary;
+            _libraryAdapter = new(_notificationLibrary);
+        }
+
         public int GetOrder() => _orderNr;
+
+        public NotificationLibraryAdapter GetNotificationLibraryAdapter() => _libraryAdapter;
 
         public List<MovieTicket> GetTicketList() => _ticketList;
 
@@ -42,6 +60,24 @@ namespace Cinema.Models
         public void PayOrder() => _state.PayOrder();
 
         public void FinalizeOrder() => _state.FinalizeOrder();
+
+        public void RegisterObserver(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void RemoveObserver(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
+
+        public void NotifyObservers(string message)
+        {
+            foreach (var observer in _observers)
+            {
+                GetNotificationLibraryAdapter().SendNotification(message);
+            }
+        }
 
         public double CalculatePrice()
         {

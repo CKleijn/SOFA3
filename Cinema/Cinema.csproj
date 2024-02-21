@@ -7,6 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Enums\NewFile.txt" />
+    <None Remove="Interfaces\NewFile.txt" />
+    <None Remove="Libraries\NewFile.txt" />
     <None Remove="States\Implementations\NewFile.txt" />
   </ItemGroup>
 
